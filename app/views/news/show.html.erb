@@ -1,0 +1,25 @@
+<div class="container">
+  <h1><%= @news.title %></h1>
+  <p><%= @news.content %></p>
+
+  <div class="mt-5">
+    <h2>Comments</h2>
+    <% @comments.each do |comment| %>
+      <%= render partial: "comment", locals: { comment: comment } %>
+    <% end %>
+  
+    <%= form_with(model: [@news, @comment], local: true) do |form| %>
+      <% if @comment.parent_id.present? %>
+        <%= form.hidden_field :parent_id %>
+      <% end %>
+  
+      <div class="form-group">
+        <%= form.text_area :body, class: "form-control", placeholder: "Add a comment" %>
+      </div>
+      <div class="form-group">
+        <%= form.submit "Post Comment", class: "btn btn-primary" %>
+      </div>
+    <% end %>
+    
+  </div>
+</div>

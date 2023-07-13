@@ -1,0 +1,28 @@
+<div class="container">
+  <div class="text-center">
+    <h1>Noticias</h1>
+  </div>
+
+  <% @news.each do |news_item| %>
+    <div class="card mt-5 rounded">
+      <div class="card-body">
+        <h2 class="card-title"><%= link_to news_item.title, news_item %></h2>
+        <p class="card-text"><%= news_item.content %></p>
+        <p><%= link_to 'Comentarios', news_item %></p>
+      </div>
+      
+      <% if user_signed_in? && current_user == news_item.user %>
+        <div class="card-footer text-right">
+          <%= link_to "Edit", edit_news_path(news_item), class: "btn btn-primary mr-2" %>
+          <%= form_with(model: news_item, method: :delete, local: true, data: { confirm: "Are you sure?" }) do |form| %>
+            <%= form.submit "Delete", class: "btn btn-danger" %>
+          <% end %>
+        </div>
+      <% end %>
+    </div>
+  <% end %>
+
+  <div class="text-center mt-5">
+    <%= link_to "Nuevas Noticias", new_news_path, class: "btn btn-primary" %>
+  </div>
+</div>

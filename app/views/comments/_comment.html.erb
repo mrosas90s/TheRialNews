@@ -1,0 +1,13 @@
+<div class="card mt-3">
+  <div class="card-body">
+    <strong><%= comment.user.name %></strong>
+    <p><%= comment.body %></p>
+
+    <%= link_to "Reply", news_path(comment.news, parent_id: comment), class: "reply-link" %>
+
+    <% if comment.replies.any? %>
+    <%= render partial: "comments/comment", locals: { comment: comment } %>
+
+    <% end %>
+  </div>
+</div>
