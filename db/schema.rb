@@ -15,14 +15,14 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_13_061301) do
   enable_extension "plpgsql"
 
   create_table "comments", force: :cascade do |t|
-    t.text "content"
-    t.bigint "user_id", null: false
-    t.bigint "news_id", null: false
+    t.text "body"
+    t.bigint "user_id"
+    t.bigint "news_id"
+    t.bigint "parent_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "parent_id"
-    t.text "body"
     t.index ["news_id"], name: "index_comments_on_news_id"
+    t.index ["parent_id"], name: "index_comments_on_parent_id"
     t.index ["user_id"], name: "index_comments_on_user_id"
   end
 
